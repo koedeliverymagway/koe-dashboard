@@ -2,7 +2,7 @@
 <html lang="my">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>KOE Delivery Admin · မကွေး</title>
@@ -13,22 +13,17 @@
       overflow: hidden;
       background: linear-gradient(135deg,#e8f4f8 0%,#dde8f5 30%,#e8ddf5 65%,#f5e8dd 100%);
     }
-    #wrap {
+    #gas-frame {
       position: fixed;
       top: 0; left: 0;
-      width: 100%; height: 100%;
-      overflow: hidden;
-    }
-    #gas-frame {
-      position: absolute;
-      top: 0; left: 0;
+      width: 100%; height: 100%; height: 100dvh;
       border: none;
-      transform-origin: 0 0;
     }
-    /* Google banner (top) ကို ဖုံးတဲ့ overlay — height ကို JS မှ set မယ် */
+    /* Google banner (top ~36px) ကို ဖုံးတယ် */
     #cover {
       position: fixed;
       top: 0; left: 0; right: 0;
+      height: 36px;
       background: linear-gradient(135deg,#e8f4f8 0%,#dde8f5 30%,#e8ddf5 65%,#f5e8dd 100%);
       z-index: 9999;
       pointer-events: none;
@@ -36,35 +31,11 @@
   </style>
 </head>
 <body>
-  <div id="wrap">
-    <iframe id="gas-frame" allowfullscreen></iframe>
-  </div>
+  <iframe id="gas-frame" allowfullscreen></iframe>
   <div id="cover"></div>
   <script>
-    var GAS_URL    = 'https://script.google.com/macros/s/AKfycbxjn3rrFtqs4YqHWPjEzvx-z4yFACvlE0teg_UqHAnkTCAKPayJO9W8G1Zey8kuvY92/exec';
-    var DESKTOP_W  = 980;   // iframe render width
-    var BANNER_H   = 36;    // Google warning bar height inside the iframe (px)
-
-    var frame = document.getElementById('gas-frame');
-    var cover = document.getElementById('cover');
-
-    function applyScale() {
-      var sw    = window.innerWidth;
-      var sh    = window.innerHeight;
-      var scale = sw / DESKTOP_W;
-
-      // Scale iframe to fill screen width at desktop layout
-      frame.style.width     = DESKTOP_W + 'px';
-      frame.style.height    = Math.ceil(sh / scale) + 'px';
-      frame.style.transform = 'scale(' + scale + ')';
-
-      // Cover exactly the Google banner (banner height × scale = screen pixels)
-      cover.style.height = Math.ceil(BANNER_H * scale) + 'px';
-    }
-
-    applyScale();
-    window.addEventListener('resize', applyScale);
-    frame.src = GAS_URL + window.location.search;
+    var GAS_URL = 'https://script.google.com/macros/s/AKfycbxjn3rrFtqs4YqHWPjEzvx-z4yFACvlE0teg_UqHAnkTCAKPayJO9W8G1Zey8kuvY92/exec';
+    document.getElementById('gas-frame').src = GAS_URL + window.location.search;
   </script>
 </body>
 </html>
