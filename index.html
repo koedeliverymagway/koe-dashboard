@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>KOE Delivery · မကွေး</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+    }
+    iframe {
+      position: fixed;
+      /* Shift up by the height of the Google warning bar (~40px)
+         so it slides above the viewport and customers never see it */
+      top: -40px;
+      left: 0;
+      width: 100%;
+      /* Extend height to compensate so no content is cut at the bottom */
+      height: calc(100% + 40px);
+      height: calc(100dvh + 40px);
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="f" allowfullscreen></iframe>
+  <script>
+    var GAS = 'https://script.google.com/macros/s/AKfycbxjn3rrFtqs4YqHWPjEzvx-z4yFACvlE0teg_UqHAnkTCAKPayJO9W8G1Zey8kuvY92/exec';
+    // Forward ?action=track&id=K-xxxx (or any other params) straight to GAS
+    document.getElementById('f').src = GAS + window.location.search;
+  </script>
+</body>
+</html>
