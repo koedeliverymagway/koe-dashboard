@@ -2,7 +2,7 @@
 <html lang="my">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=980">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>KOE Delivery Admin · မကွေး</title>
@@ -17,13 +17,12 @@
     }
     #gas-frame {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      height: 100dvh;
+      top: 0;
+      left: 0;
+      /* width/height set by JS below */
       border: none;
+      transform-origin: top left;
     }
-    /* Google warning bar က bottom မှာ ပေါ်တာ — အဲဒါကို ဖုံးတယ် */
     #cover {
       position: fixed;
       bottom: 0; left: 0; right: 0;
@@ -39,7 +38,22 @@
   <div id="cover"></div>
   <script>
     var GAS_URL = 'https://script.google.com/macros/s/AKfycbxjn3rrFtqs4YqHWPjEzvx-z4yFACvlE0teg_UqHAnkTCAKPayJO9W8G1Zey8kuvY92/exec';
-    document.getElementById('gas-frame').src = GAS_URL + window.location.search;
+
+    // Desktop width ကို phone screen မှာ scale ချပြတဲ့ trick
+    var DESKTOP_W = 980;
+    var frame = document.getElementById('gas-frame');
+
+    function applyScale() {
+      var scale = window.innerWidth / DESKTOP_W;
+      frame.style.width  = DESKTOP_W + 'px';
+      frame.style.height = (window.innerHeight / scale) + 'px';
+      frame.style.transform = 'scale(' + scale + ')';
+    }
+
+    applyScale();
+    window.addEventListener('resize', applyScale);
+
+    frame.src = GAS_URL + window.location.search;
   </script>
 </body>
 </html>
