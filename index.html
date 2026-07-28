@@ -2,20 +2,31 @@
 <html lang="my">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>KOE Delivery · မကွေး</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
-      width: 100%; height: 100%; height: 100dvh;
-      overflow: hidden; background: #e8f4f8;
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background: linear-gradient(135deg,#e8f4f8 0%,#dde8f5 30%,#e8ddf5 65%,#f5e8dd 100%);
     }
+
+    /* The Google warning bar is ~44px tall.
+       Shift the iframe UP by 44px so the warning bar
+       goes off the top of the screen and is never seen. */
     #gas-frame {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%; height: 100dvh;
-      border: none; display: block;
+      position: fixed;
+      top: -44px;
+      left: 0;
+      width: 100%;
+      height: calc(100dvh + 44px);
+      border: none;
+      display: block;
     }
   </style>
 </head>
@@ -23,8 +34,8 @@
   <iframe id="gas-frame" allowfullscreen></iframe>
   <script>
     var GAS_URL = 'https://script.google.com/macros/s/AKfycbxjn3rrFtqs4YqHWPjEzvx-z4yFACvlE0teg_UqHAnkTCAKPayJO9W8G1Zey8kuvY92/exec';
-    var params = window.location.search;
-    document.getElementById('gas-frame').src = GAS_URL + (params || '');
+    // Forward any query params (?action=track&id=K-xxxx) to GAS
+    document.getElementById('gas-frame').src = GAS_URL + window.location.search;
   </script>
 </body>
 </html>
