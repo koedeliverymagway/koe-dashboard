@@ -15,7 +15,6 @@
       overflow: hidden;
       background: linear-gradient(135deg,#e8f4f8 0%,#dde8f5 30%,#e8ddf5 65%,#f5e8dd 100%);
     }
-
     #gas-frame {
       position: fixed;
       top: 0; left: 0;
@@ -24,22 +23,20 @@
       height: 100dvh;
       border: none;
     }
-
-    /* Google warning bar ဖုံးတဲ့ overlay — 30px သာထားတော့ content မဖုံးဘူး */
+    /* Google warning bar က bottom မှာ ပေါ်တာ — အဲဒါကို ဖုံးတယ် */
     #cover {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 30px;
+      bottom: 0; left: 0; right: 0;
+      height: 40px;
       background: linear-gradient(135deg,#e8f4f8 0%,#dde8f5 30%,#e8ddf5 65%,#f5e8dd 100%);
-      background-attachment: fixed;
       z-index: 9999;
       pointer-events: none;
     }
   </style>
 </head>
 <body>
-  <div id="cover"></div>
   <iframe id="gas-frame" allowfullscreen></iframe>
+  <div id="cover"></div>
   <script>
     var GAS_URL = 'https://script.google.com/macros/s/AKfycbxjn3rrFtqs4YqHWPjEzvx-z4yFACvlE0teg_UqHAnkTCAKPayJO9W8G1Zey8kuvY92/exec';
     document.getElementById('gas-frame').src = GAS_URL + window.location.search;
