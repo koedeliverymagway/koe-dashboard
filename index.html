@@ -1,23 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="my">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=980">
-  <title>KOE Dashboard · မကွေး</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>KOE Delivery · မကွေး</title>
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html, body { height:100%; overflow:hidden; background:#0F172A; }
-    iframe { width:100%; height:100vh; border:none; display:block; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%; height: 100%; height: 100dvh;
+      overflow: hidden; background: #e8f4f8;
+    }
+    #gas-frame {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%; height: 100dvh;
+      border: none; display: block;
+    }
   </style>
 </head>
 <body>
+  <iframe id="gas-frame" allowfullscreen></iframe>
   <script>
-    var base = 'https://script.google.com/macros/s/AKfycbxjn3rrFtqs4YqHWPjEzvx-z4yFACvlE0teg_UqHAnkTCAKPayJO9W8G1Zey8kuvY92/exec';
+    var GAS_URL = 'https://script.google.com/macros/s/AKfycbxjn3rrFtqs4YqHWPjEzvx-z4yFACvlE0teg_UqHAnkTCAKPayJO9W8G1Zey8kuvY92/exec';
     var params = window.location.search;
-    var iframe = document.createElement('iframe');
-    iframe.src = base + params;
-    iframe.style.cssText = 'width:100%;height:100vh;border:none;display:block';
-    document.body.appendChild(iframe);
+    document.getElementById('gas-frame').src = GAS_URL + (params || '');
   </script>
 </body>
 </html>
