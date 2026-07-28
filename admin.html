@@ -9,24 +9,26 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
-      width: 100%;
-      height: 100%;
-      height: 100dvh;
+      width: 100%; height: 100%; height: 100dvh;
       overflow: hidden;
       background: linear-gradient(135deg,#e8f4f8 0%,#dde8f5 30%,#e8ddf5 65%,#f5e8dd 100%);
     }
-    #gas-frame {
+    #wrap {
       position: fixed;
-      top: 0;
-      left: 0;
-      /* width/height set by JS below */
-      border: none;
-      transform-origin: top left;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
     }
+    #gas-frame {
+      position: absolute;
+      top: 0; left: 0;
+      border: none;
+      transform-origin: 0 0;
+    }
+    /* Google banner (top) ကို ဖုံးတဲ့ overlay — height ကို JS မှ set မယ် */
     #cover {
       position: fixed;
-      bottom: 0; left: 0; right: 0;
-      height: 40px;
+      top: 0; left: 0; right: 0;
       background: linear-gradient(135deg,#e8f4f8 0%,#dde8f5 30%,#e8ddf5 65%,#f5e8dd 100%);
       z-index: 9999;
       pointer-events: none;
@@ -34,25 +36,34 @@
   </style>
 </head>
 <body>
-  <iframe id="gas-frame" allowfullscreen></iframe>
+  <div id="wrap">
+    <iframe id="gas-frame" allowfullscreen></iframe>
+  </div>
   <div id="cover"></div>
   <script>
-    var GAS_URL = 'https://script.google.com/macros/s/AKfycbxjn3rrFtqs4YqHWPjEzvx-z4yFACvlE0teg_UqHAnkTCAKPayJO9W8G1Zey8kuvY92/exec';
+    var GAS_URL    = 'https://script.google.com/macros/s/AKfycbxjn3rrFtqs4YqHWPjEzvx-z4yFACvlE0teg_UqHAnkTCAKPayJO9W8G1Zey8kuvY92/exec';
+    var DESKTOP_W  = 980;   // iframe render width
+    var BANNER_H   = 36;    // Google warning bar height inside the iframe (px)
 
-    // Desktop width ကို phone screen မှာ scale ချပြတဲ့ trick
-    var DESKTOP_W = 980;
     var frame = document.getElementById('gas-frame');
+    var cover = document.getElementById('cover');
 
     function applyScale() {
-      var scale = window.innerWidth / DESKTOP_W;
-      frame.style.width  = DESKTOP_W + 'px';
-      frame.style.height = (window.innerHeight / scale) + 'px';
+      var sw    = window.innerWidth;
+      var sh    = window.innerHeight;
+      var scale = sw / DESKTOP_W;
+
+      // Scale iframe to fill screen width at desktop layout
+      frame.style.width     = DESKTOP_W + 'px';
+      frame.style.height    = Math.ceil(sh / scale) + 'px';
       frame.style.transform = 'scale(' + scale + ')';
+
+      // Cover exactly the Google banner (banner height × scale = screen pixels)
+      cover.style.height = Math.ceil(BANNER_H * scale) + 'px';
     }
 
     applyScale();
     window.addEventListener('resize', applyScale);
-
     frame.src = GAS_URL + window.location.search;
   </script>
 </body>
