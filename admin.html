@@ -15,10 +15,16 @@
   </style>
 </head>
 <body>
-  <iframe id="gas-frame" allowfullscreen></iframe>
-  <script>
-    var GAS_URL = 'https://script.google.com/macros/s/AKfycbxjn3rrFtqs4YqHWPjEzvx-z4yFACvlE0teg_UqHAnkTCAKPayJO9W8G1Zey8kuvY92/exec';
-    document.getElementById('gas-frame').src = GAS_URL + window.location.search;
-  </script>
+  <iframe id=linear-gradient(135deg,#e8f4f8 0%,#dde8f5 30%,#e8ddf5 65%,#f5e8dd 100%);
+    }
+
+    /* The Google warning bar is ~44px tall.
+       Shift the iframe UP by 44px so the warning bar
+       goes off the top of the screen and is never seen. */
+    #gas-frame {
+      position: fixed;
+      top: -44px;
+      left: 0;
+      width: 100%;cript>
 </body>
 </html>
